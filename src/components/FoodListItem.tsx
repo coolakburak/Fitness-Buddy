@@ -20,7 +20,7 @@ export default FoodListItem;
 
 const styles = StyleSheet.create({
   foodItemView: {
-    backgroundColor: "gainsboro",
+    backgroundColor: "#f6f6f6f6",
     padding: 10,
     borderRadius: 5,
     flexDirection: "row",
