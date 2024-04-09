@@ -6,9 +6,9 @@ const FoodListItem = ({ item }) => {
   return (
     <View style={styles.foodItemView}>
       <View style={{ flex: 1, gap: 5 }}>
-        <Text style={styles.foodName}>{item.label}</Text>
+        <Text style={styles.foodName}>{item.food.label}</Text>
         <Text style={styles.ingredients}>
-          {item.cal} cal, {item.brand}
+          {item.food.nutrients.ENERC_KCAL} cal, {item.food.brand}
         </Text>
       </View>
       <AntDesign name="pluscircleo" size={30} color="royalblue" />
