@@ -1,83 +1,67 @@
-import {
-  ActivityIndicator,
-  Button,
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Link } from "expo-router";
 import FoodListItem from "../components/FoodListItem";
-import { useState } from "react";
-import { gql, useLazyQuery } from "@apollo/client";
 
-const query = gql`
-  query search($ingr: String) {
-    search(ingr: $ingr) {
-      text
-      hints {
-        food {
-          label
-          brand
-          foodId
-          nutrients {
-            ENERC_KCAL
-          }
-        }
-      }
-    }
-  }
-`;
+const foodItems = [
+  {
+    food: {
+      label: "Pizza",
+      brand: "Dominos",
+      nutrients: { ENERC_KCAL: 100 },
+    },
+  },
 
-export default function SearchScreen() {
-  const [search, setSearch] = useState("");
+  {
+    food: {
+      label: "Pizza",
+      brand: "Dominos",
+      nutrients: { ENERC_KCAL: 100 },
+    },
+  },
+];
 
-  const [runSearch, { data, loading, error }] = useLazyQuery(query);
-
-  const performSearch = () => {
-    runSearch({ variables: { ingr: search } });
-    setSearch("");
-  };
-
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
-
-  const items = data?.search?.hints || [];
-
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <TextInput
-        value={search}
-        onChangeText={setSearch}
-        placeholder="Search for a Food..."
-        style={styles.searchBar}
-      />
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Calories</Text>
+        <Text>2100 - 460 = 1640</Text>
+      </View>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Today's food</Text>
+        <Link href="/search" asChild>
+          <Button title="ADD FOOD" />
+        </Link>
+      </View>
 
-      {search && <Button title="search" onPress={performSearch} />}
-      {loading && <ActivityIndicator size="large" color="royalblue" />}
       <FlatList
-        showsVerticalScrollIndicator={false}
-        data={items}
-        renderItem={({ item }) => <FoodListItem item={item} />}
-        ListEmptyComponent={<Text>Search a food for results </Text>}
         contentContainerStyle={{ gap: 5 }}
+        data={foodItems}
+        renderItem={({ item }) => <FoodListItem item={item} />}
       />
     </View>
   );
-}
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    backgroundColor: "#fff",
-
     padding: 10,
+    gap: 10,
   },
-  searchBar: {
-    backgroundColor: "#f2f2f2f2",
-    padding: 10,
-    borderRadius: 20,
-    margin: 10,
+  header: {
+    fontSize: 16,
+    fontWeight: "500",
+    flex: 1,
+    color: "dimgray",
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
