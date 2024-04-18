@@ -1,7 +1,29 @@
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { Link } from "expo-router";
-import FoodListItem from "../components/FoodListItem";
+import { gql, useQuery } from "@apollo/client";
+import dayjs from "dayjs";
+import FoodLogListItem from "../components/FoodLogListItem";
+
+const query = gql`
+  query MyQuery($date: Date!, $user_id: String!) {
+    foodLogsForDate(date: $date, user_id: $user_id) {
+      created_at
+      food_id
+      user_id
+      label
+      kcal
+      id
+    }
+  }
+`;
 
 const foodItems = [
   {
@@ -22,6 +44,25 @@ const foodItems = [
 ];
 
 const HomeScreen = () => {
+  const user_id = "Burak";
+  const { data, loading, error } = useQuery(query, {
+    variables: {
+      // date: new Date().toISOString().split('T')[0],
+      date: dayjs().format("YYYY-MM-DD"),
+      user_id,
+    },
+  });
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error) {
+    return <Text>Error: Failed to fetch data</Text>;
+  }
+
+  
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -37,8 +78,8 @@ const HomeScreen = () => {
 
       <FlatList
         contentContainerStyle={{ gap: 5 }}
-        data={foodItems}
-        renderItem={({ item }) => <FoodListItem item={item} />}
+        data={data.foodLogsForDate}
+        renderItem={({ item }) => <FoodLogListItem item={item} />}
       />
     </View>
   );

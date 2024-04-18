@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   Button,
   FlatList,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -37,6 +38,7 @@ export default function SearchScreen() {
   const performSearch = () => {
     runSearch({ variables: { ingr: search } });
     setSearch("");
+    Keyboard.dismiss();
   };
 
   if (error) {
