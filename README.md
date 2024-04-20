@@ -22,7 +22,10 @@
 
 
 
-https://github.com/coolakburak/Fitness-Buddy/assets/111067790/ae136138-4199-4cc9-a856-5af37ce62495
+
+
+
+https://github.com/coolakburak/Fitness-Buddy/assets/111067790/9297c46c-054d-4d2b-ba6a-a136354a8148
 
 
 
