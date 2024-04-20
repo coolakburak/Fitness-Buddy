@@ -5,7 +5,7 @@
 </h1>
 
 <p><font size="3">
-  A Fitness buddy. With the search bar, you can search for the dishes you want and add them to your daily list.
+  A Fitness buddy. With the search bar, you can search for the dishes you want and add them to your daily list. Also you can delete them.
 </p>
   <h1>Features</h1>
   <ul>
